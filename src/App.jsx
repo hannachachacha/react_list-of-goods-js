@@ -18,7 +18,8 @@ export const goodsFromServer = [
 ];
 
 export const App = () => {
-  const [goods, setGoods] = useState(goodsFromServer);
+  const initialGoods = [...goodsFromServer];
+  const [goods, setGoods] = useState(initialGoods);
   const [sortField, setSortField] = useState('');
   const [isReversed, setIsReversed] = useState(false);
 
@@ -32,7 +33,7 @@ export const App = () => {
           })}
           onClick={() => {
             setSortField('alphab');
-            const sorted = [...goodsFromServer].sort((a, b) =>
+            const sorted = [...initialGoods].sort((a, b) =>
               a.localeCompare(b),);
 
             if (isReversed) {
@@ -52,7 +53,7 @@ export const App = () => {
           })}
           onClick={() => {
             setSortField('byLength');
-            const sorted = [...goodsFromServer].sort(
+            const sorted = [...initialGoods].sort(
               (a, b) => a.length - b.length,
             );
 
@@ -81,12 +82,12 @@ export const App = () => {
           Reverse
         </button>
 
-        {JSON.stringify(goods) !== JSON.stringify(goodsFromServer) && (
+        {JSON.stringify(goods) !== JSON.stringify(initialGoods) && (
           <button
             type="button"
             className="button is-danger"
             onClick={() => {
-              setGoods(goodsFromServer);
+              setGoods(initialGoods);
               setSortField('');
               setIsReversed(false);
             }}
